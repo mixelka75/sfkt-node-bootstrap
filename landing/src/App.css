@@ -112,8 +112,8 @@ html, body {
 }
 
 .logo-img {
-  width: 48px;
-  height: 48px;
+  height: 56px;
+  width: auto;
   filter: drop-shadow(0 0 20px rgba(233, 145, 187, 0.4));
 }
 

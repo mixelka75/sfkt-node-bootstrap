@@ -36,7 +36,6 @@ function App() {
         <header className="header">
           <div className="logo">
             <img src={`${import.meta.env.BASE_URL}sfktlogo.png`} alt="SafeKitty" className="logo-img" />
-            <span className="logo-text">SafeKitty</span>
           </div>
         </header>
 
