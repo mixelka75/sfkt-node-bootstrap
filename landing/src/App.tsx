@@ -17,7 +17,7 @@ function App() {
 
   const openDeepLink = () => {
     const encodedKey = encodeURIComponent(CONFIG.VLESS_KEY)
-    window.location.href = `v2raytun://add?link=${encodedKey}`
+    window.location.href = `v2raytun://import/${encodedKey}`
   }
 
   return (
