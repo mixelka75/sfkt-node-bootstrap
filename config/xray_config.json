@@ -1,0 +1,355 @@
+{
+  "log": {
+    "loglevel": "warning",
+    "access": "/var/log/xray/access.log",
+    "error": "/var/log/xray/error.log"
+  },
+  "stats": {},
+  "api": {
+    "tag": "api",
+    "services": [
+      "StatsService",
+      "HandlerService"
+    ]
+  },
+  "policy": {
+    "levels": {
+      "0": {
+        "handshake": 8,
+        "connIdle": 600,
+        "uplinkOnly": 5,
+        "downlinkOnly": 10,
+        "bufferSize": 512,
+        "statsUserUplink": true,
+        "statsUserDownlink": true
+      }
+    },
+    "system": {
+      "statsInboundUplink": true,
+      "statsInboundDownlink": true,
+      "statsOutboundUplink": true,
+      "statsOutboundDownload": true
+    }
+  },
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "port": 443,
+      "protocol": "vless",
+      "tag": "vless-in",
+      "settings": {
+        "clients": [
+          {
+            "id": "SHARED_UUID_PLACEHOLDER",
+            "email": "bootstrap-user",
+            "level": 0
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "max.ru:443",
+          "xver": 0,
+          "serverNames": [
+            "max.ru",
+            "www.max.ru"
+          ],
+          "privateKey": "PRIVATE_KEY_PLACEHOLDER",
+          "shortIds": [
+            "SHORT_ID_PLACEHOLDER"
+          ]
+        },
+        "xhttpSettings": {
+          "mode": "auto",
+          "path": "/sfkt-free"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ]
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10085,
+      "protocol": "dokodemo-door",
+      "tag": "api-in",
+      "settings": {
+        "address": "127.0.0.1"
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "tag": "direct",
+      "settings": {
+        "domainStrategy": "UseIPv4"
+      },
+      "streamSettings": {
+        "sockopt": {
+          "tcpNoDelay": true,
+          "tcpKeepAliveIdle": 300,
+          "tcpKeepAliveInterval": 30,
+          "tcpFastOpen": false
+        }
+      }
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "block",
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "api-in"
+        ],
+        "outboundTag": "api"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:youtube.com",
+          "domain:youtu.be",
+          "domain:googlevideo.com",
+          "domain:ytimg.com",
+          "domain:ggpht.com",
+          "domain:youtube-nocookie.com",
+          "domain:youtubekids.com",
+          "domain:youtube-ui.l.google.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:netflix.com",
+          "domain:nflxvideo.net",
+          "domain:nflximg.net",
+          "domain:nflxext.com",
+          "domain:nflxso.net"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:tiktok.com",
+          "domain:tiktokcdn.com",
+          "domain:tiktokv.com",
+          "domain:musical.ly",
+          "domain:byteoversea.com",
+          "domain:ibytedtos.com",
+          "domain:tiktokcdn-us.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:twitch.tv",
+          "domain:twitchcdn.net",
+          "domain:jtvnw.net",
+          "domain:twitchsvc.net"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:instagram.com",
+          "domain:cdninstagram.com",
+          "domain:ig.me"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:facebook.com",
+          "domain:fb.com",
+          "domain:fbcdn.net",
+          "domain:facebook.net",
+          "domain:fb.me",
+          "domain:fbsbx.com",
+          "domain:messenger.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:twitter.com",
+          "domain:x.com",
+          "domain:twimg.com",
+          "domain:t.co",
+          "domain:tweetdeck.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:discord.com",
+          "domain:discord.gg",
+          "domain:discordapp.com",
+          "domain:discordapp.net",
+          "domain:discord.media",
+          "domain:discordcdn.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:reddit.com",
+          "domain:redd.it",
+          "domain:redditstatic.com",
+          "domain:redditmedia.com",
+          "domain:redditspace.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:linkedin.com",
+          "domain:licdn.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:pinterest.com",
+          "domain:pinimg.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:snapchat.com",
+          "domain:snap.com",
+          "domain:snapkit.com",
+          "domain:sc-cdn.net"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:spotify.com",
+          "domain:spotifycdn.com",
+          "domain:scdn.co",
+          "domain:spoti.fi"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:soundcloud.com",
+          "domain:sndcdn.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:openai.com",
+          "domain:chatgpt.com",
+          "domain:oaiusercontent.com",
+          "domain:openaiapi-site.azureedge.net"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:claude.ai",
+          "domain:anthropic.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:pornhub.com",
+          "domain:xvideos.com",
+          "domain:xnxx.com",
+          "domain:xhamster.com",
+          "domain:redtube.com",
+          "domain:youporn.com",
+          "domain:tube8.com",
+          "domain:spankbang.com",
+          "domain:onlyfans.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:primevideo.com",
+          "domain:amazonvideo.com",
+          "domain:disneyplus.com",
+          "domain:disney-plus.net",
+          "domain:hbomax.com",
+          "domain:hulu.com",
+          "domain:peacocktv.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:vimeo.com",
+          "domain:vimeocdn.com",
+          "domain:dailymotion.com",
+          "domain:dm.gg"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:steampowered.com",
+          "domain:steamcontent.com",
+          "domain:steamstatic.com",
+          "domain:epicgames.com",
+          "domain:unrealengine.com"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "network": "tcp,udp",
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}

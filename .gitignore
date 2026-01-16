@@ -1,0 +1,40 @@
+# Environment files (contain secrets!)
+.env
+*.env.local
+
+# Logs
+*.log
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+
+# Docker
+docker-compose.override.yml
+
+# Node.js / Landing
+landing/node_modules/
+landing/dist/
+landing/.vite/
+*.local

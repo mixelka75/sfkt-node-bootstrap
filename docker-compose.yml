@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  node-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sfkt_bootstrap_agent
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ID=${NODE_ID:-}
+      - NODE_NAME=${NODE_NAME:-Free Server (Telegram Only)}
+      - NODE_HOSTNAME=${NODE_HOSTNAME}
+      - NODE_IP=${NODE_IP}
+      - NODE_PORT=${NODE_PORT:-443}
+      - NODE_COUNTRY=${NODE_COUNTRY:-Russia}
+      - NODE_COUNTRY_CODE=${NODE_COUNTRY_CODE:-RU}
+      - NODE_CITY=${NODE_CITY:-}
+      - NODE_SNI=${NODE_SNI:-max.ru}
+      - REALITY_PUBLIC_KEY=${REALITY_PUBLIC_KEY}
+      - REALITY_SHORT_ID=${REALITY_SHORT_ID}
+      - MAIN_SERVER_URL=${MAIN_SERVER_URL}
+      - NODE_API_KEY=${NODE_API_KEY}
+      - HEALTH_CHECK_INTERVAL=${HEALTH_CHECK_INTERVAL:-60}
+    # No privileged mode needed - we don't manage Xray
+    # Xray runs on host with static config
+    networks:
+      - sfkt_network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  sfkt_network:
+    external: true
