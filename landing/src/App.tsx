@@ -35,7 +35,7 @@ function App() {
         {/* Header */}
         <header className="header">
           <div className="logo">
-            <img src="/sfktlogo.png" alt="SafeKitty" className="logo-img" />
+            <img src={`${import.meta.env.BASE_URL}sfktlogo.png`} alt="SafeKitty" className="logo-img" />
             <span className="logo-text">SafeKitty</span>
           </div>
         </header>
@@ -47,9 +47,25 @@ function App() {
           </div>
           <h1 className="hero-title">VPN для Telegram</h1>
           <p className="hero-subtitle">
-            Бесплатный доступ к Telegram без регистрации и ограничений по времени
+            Бесплатный доступ к Telegram без регистрации
           </p>
         </section>
+
+        {/* Purpose Banner */}
+        <div className="purpose-banner">
+          <div className="purpose-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+          </div>
+          <div className="purpose-content">
+            <h3>Зачем этот сервер?</h3>
+            <p>
+              Чтобы получить доступ к боту <a href={CONFIG.BOT_URL}>{CONFIG.BOT_USERNAME}</a> и
+              оформить <strong>полноценный VPN</strong> для всех сайтов
+            </p>
+          </div>
+        </div>
 
         {/* Warning */}
         <div className="warning-card">

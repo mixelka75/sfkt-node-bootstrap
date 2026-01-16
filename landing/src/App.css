@@ -176,6 +176,68 @@ html, body {
   line-height: 1.6;
 }
 
+/* Purpose Banner */
+.purpose-banner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 28px;
+  background: linear-gradient(135deg, rgba(233, 145, 187, 0.15), rgba(139, 92, 246, 0.15));
+  border: 2px solid rgba(233, 145, 187, 0.4);
+  border-radius: 20px;
+  margin: 32px 0;
+  animation: purposePulse 3s ease-in-out infinite;
+}
+
+@keyframes purposePulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(233, 145, 187, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(233, 145, 187, 0.4);
+  }
+}
+
+.purpose-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e991bb, #a78bfa);
+  border-radius: 16px;
+  flex-shrink: 0;
+}
+
+.purpose-icon svg {
+  width: 28px;
+  height: 28px;
+  color: white;
+}
+
+.purpose-content h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.purpose-content p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.purpose-content a {
+  color: #e991bb;
+  font-weight: 600;
+}
+
+.purpose-content strong {
+  color: #ffffff;
+}
+
 /* Warning Card */
 .warning-card {
   background: linear-gradient(135deg, rgba(255, 159, 10, 0.08), rgba(255, 69, 58, 0.08));
