@@ -11,7 +11,7 @@ generate_keys() {
     if command -v xray &> /dev/null; then
         # xray is installed locally
         xray x25519 > "$TEMP_FILE" 2>&1
-    elif command -v docker &> /dev/null; then
+    elif command -v docker &> /dev/null || [ -x /usr/bin/docker ]; then
         # Use Docker to run xray
         docker run --rm teddysun/xray:latest xray x25519 > "$TEMP_FILE" 2>&1
     else
